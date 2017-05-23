@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using DAL.Model;
 using Model.DTO;
 using AutoMapper;
+using DAL;
 
 namespace BAL.Manager
 {
@@ -19,8 +20,17 @@ namespace BAL.Manager
 
 		public List<HolidayLoadDTO> GetAll()
 		{
-			var holidays=uOW.HolidayRepo.All.ToList();
-			return Mapper.Map<List<HolidayLoadDTO>>(holidays);
+			var holidaysList = new List<Holidays>();
+			using (var context = new MainContext())
+			{
+				var holidaysDb =context.Database.SqlQuery<Holidays>("SELECT * FROM Holidays");
+				holidaysList.AddRange(holidaysDb); 
+
+			}
+
+			//var holidays = uOW.HolidayRepo.All.ToList();
+			return Mapper.Map<List<HolidayLoadDTO>>(holidaysList);
+			
 		}
 	}
 }
