@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+	<li>
+	</li>
+
+	<li id="userName" user-id="@User.Identity.GetUserId()">@Html.ActionLink(User.Identity.GetUserName(), "Index", "Home")</li>
+	<li>
+		<a href=@Url.Action("Logout", "Home")>
+			<span class="glyphicon glyphicon btn btn-xs glyphicon-log-out"></span>
+		</a>
+	</li>
+}
+else
+{
+	<li>@Html.ActionLink("Login", "Login", "Home")</li>
+	<li>
+		<a href=@Url.Action("Login", "Home")>
+			<span class="glyphicon glyphicon btn btn-xs glyphicon-log-in"></span>
+		</a>
+	</li>
+}

@@ -1,0 +1,264 @@
+﻿
+<link rel="stylesheet" href="~/Content/bootstrap-year-calendrar.min.css">
+<link rel="stylesheet" href="~/Content/bootstrap-datepicker.css">
+<body>
+	
+	<div data-provide="calendar" id="calendar"></div>
+	<div class="vacationCalendar" data-bind="template:{name:'vacation-managment', data:$data}">
+
+	</div>
+	<script type="text/html" id="vacation-managment">
+		<div class="modal modal-fade" id="event-modal">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title">
+							Request
+						</h4>
+					</div>
+					<div class="modal-body">
+						<input type="hidden" name="event-index">
+						<form class="form-horizontal">
+							<div class="form-group">
+								<label for="min-date" class="col-sm-4 control-label">Type</label>
+								<div class="col-sm-7">
+									<input name="event-type" type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="min-date" class="col-sm-4 control-label">Dates</label>
+								<div class="col-sm-7">
+									<div class="input-group input-daterange" data-provide="datepicker">
+										<input name="event-start-date" type="text" class="form-control" value="2017-04-05">
+										<span class="input-group-addon">to</span>
+										<input name="event-end-date" type="text" class="form-control" value="2017-04-19">
+									</div>
+								</div>
+							</div>
+						</form>
+						<form class="form-horizontal text-center">
+							<input type="button" data-bind="visible: isManager,click: approveRequest" class="btn btn-success" id="apporve-request"  style="margin: 0px 4px 4px 4px;" value="Approve request" />
+							<input type="button" data-bind="visible: isManager,click: declineRequest" class="btn btn-danger" id="decline-request" onclick="declineRequest()" style="margin: 0px 4px 4px 4px;" value="Decline request" />
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" id="save-event">
+							Save
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="panel-group" data-bind="visible: isHR" >
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#createUser" style="cursor: pointer;">Create new user</a>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<div id="createUser" class="collapse">
+						<div class="control-group">
+							<!-- First name -->
+							<label class="control-label" for="firstname">First Name</label>
+							<div class="controls">
+								<input type="text" id="firstname" name="firstname" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter first name of user</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Last name -->
+							<label class="control-label" for="lastname">Last Name</label>
+							<div class="controls">
+								<input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter last name of user</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Username -->
+							<label class="control-label" for="username">Username</label>
+							<div class="controls">
+								<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+								<p class="help-block">Username can contain any letters or numbers, without spaces</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<!-- E-mail -->
+							<label class="control-label" for="email">E-mail</label>
+							<div class="controls">
+								<input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+								<p class="help-block">Please provide your E-mail</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<!-- Password-->
+							<label class="control-label" for="password">Password</label>
+							<div class="controls">
+								<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+								<p class="help-block">Password should be at least 4 characters</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="YearsOfService">Years of Service</label>
+							<div class="controls">
+								<input type="number" id="yearsOfService" name="YearsOfService" placeholder="" class="input-xlarge">
+							</div>
+						</div>
+
+						<div class="control-group" style="margin: 6px 0px 6px 0px;">
+							<label for="role">Select Role:</label>
+							<select class="form-control" id="role">
+								<option value="4">User</option>
+								<option value="3">Employee</option>
+								<option value="2">Manager</option>
+								<option value="1">HR</option>
+							</select>
+						</div>
+
+						<div class="control-group">
+							<!-- Button -->
+							<div class="controls">
+								<button class="btn btn-success" data-bind="click: createUser">Create</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group" data-bind="visible: isHR">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#createPolicy" style="cursor: pointer;">Set new vacation policy</a>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<div id="createPolicy" class="collapse">
+						<div class="control-group">
+							<!-- Min years of office -->
+							<label class="control-label" for="minYearsOfOffice">Minimum years of office</label>
+							<div class="controls">
+								<input type="text" id="minYearsOfOffice" name="minYearsOfOffice" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter minimum years of office</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Max years of office -->
+							<label class="control-label" for="maxYearsOfOffice">Maximum years of office</label>
+							<div class="controls">
+								<input type="text" id="maxYearsOfOffice" name="maxYearsOfOffice" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter maximum years of office</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Paid day offs -->
+							<label class="control-label" for="paidDayOffs">Paid day offs</label>
+							<div class="controls">
+								<input type="text" id="paidDayOffs" name="paidDayOffs" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter number of paid day offs</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<!-- Paid sickness-->
+							<label class="control-label" for="paidSickness">Paid sickness</label>
+							<div class="controls">
+								<input type="text" id="paidSickness" name="paidSickness" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter number of paid sickness</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<!-- Unpaid Day offs-->
+							<label class="control-label" for="unPaidDayOffs">Unpaid day offs</label>
+							<div class="controls">
+								<input type="text" id="unPaidDayOffs" name="unPaidDayOffs" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter number of unpaid day offs</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="unPaidSickness">Unpaid sickness</label>
+							<div class="controls">
+								<input type="text" id="unPaidSickness" name="unPaidSickness" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter number of unpaid sickness</p>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<!-- Button -->
+							<div class="controls">
+								<button class="btn btn-success" data-bind="click: setPolicy">Set policy</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-group" data-bind="visible: isHR">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-target="#setHoliday" style="cursor: pointer;">Set new holiday</a>
+					</h4>
+				</div>
+				<div class="panel-body">
+					<div id="setHoliday" class="collapse">
+						<div class="control-group">
+							<!-- Name of Holiday -->
+							<label class="control-label" for="nameOfHoliday">Name of holiday</label>
+							<div class="controls">
+								<input type="text" id="nameOfHoliday" name="nameOfHoliday" placeholder="" class="input-xlarge">
+								<p class="help-block">Enter name of holiday</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Name of Holiday -->
+							<label class="control-label" for="dateOfHoliday">Choose a Date</label>
+							<div class="controls">
+								<input name="event-holiday-date" id="dateOfHoliday" type="text" class="form-control" value="05/19/2017">
+								<p class="help-block">Choose the date of holiday</p>
+							</div>
+						</div>
+						<div class="control-group">
+							<!-- Button -->
+							<div class="controls">
+								<button class="btn btn-success" data-bind="click: setHoliday">Set Holiday</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+
+	</script>
+
+
+
+
+
+</body>
+
+@section scripts{
+	<script src="~/Scripts/bootstrap-year-calendar.min.js"></script>
+	<script src="~/Scripts/bootstrap-datepicker.js"></script>
+	@Scripts.Render("~/Scripts/VacationCalendar.js")
+	@Scripts.Render("~/bundles/knockout")
+
+
+
+
+}

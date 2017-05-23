@@ -1,0 +1,65 @@
+﻿@model VacationManageApi.Models.LoginModel
+
+@{
+	ViewBag.Title = "Login";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h2>Login</h2>
+		</div>
+		<div class="col-md-12">
+		</div>
+	</div>
+	<div class="row">
+		<form id="loginForm" action="@Url.Content("~/Home/Login")" class="form-horizontal" method="post" enctype="multipart/form-data">
+
+			<div class="form-horizontal">
+				<hr />
+				<div class="form-group">
+					<label class="control-label col-md-2">UserName</label>
+					<div class="col-md-4">
+						<input id="textinput" name="Name" type="text" value="@Model.Name" placeholder="placeholder" class="form-control input-md usernameinp">
+						@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-md-2">Password</label>
+					<div class="col-md-4">
+						<input id="textinput" name="Password" type="password" value="@Model.Password" placeholder="placeholder" class="form-control input-md passwordinp">
+						@Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<input type="submit" value="Login" class="btn btn-default" id="submit" />
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+@Scripts.Render("~/bundles/jquery")
+<script>
+	$('#submit').click(function() {
+		//get email and pass
+		var email = $('.usernameinp').val();
+		var password = $('.passwordinp').val();
+		$.ajax({
+			type: 'POST',
+			url: ('/Token'),
+			dataType: "json",
+			data: { "username": email, "password": password, "grant_type": "password" },
+			success: function(data) {
+				var value = data.access_token;
+				document.cookie = 'token=' + value + ";path=/";
+			}
+		});
+
+		$('loginForm').submit();
+	});
+</script>

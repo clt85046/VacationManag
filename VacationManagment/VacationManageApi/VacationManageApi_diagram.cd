@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="VacationManageApi.Controllers.AccountController" Collapsed="true">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAFACAACAAgQAAEAARAgIAABABEBAAAAAQgAEAAQA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.ClaimsController" Collapsed="true">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\ClaimsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.EmployeeController" Collapsed="true">
+    <Position X="7.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAABAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\EmployeeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.HolidayController" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controllers\HolidayController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.HomeController" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAIAAAAAAAIAAAEQAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.HRController" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAACAAAAAEAAAAAAAAAIAAA=</HashCode>
+      <FileName>Controllers\HRController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.ManagerController" Collapsed="true">
+    <Position X="4.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Controllers\ManagerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManageApi.Controllers.VacationController" Collapsed="true">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAQAAAEAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Controllers\VacationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VacationManagmentApi.Controllers.UserController" Collapsed="true">
+    <Position X="6" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAAAQAAAAAIAgAAAAAQAAA=</HashCode>
+      <FileName>Controllers\UserController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
