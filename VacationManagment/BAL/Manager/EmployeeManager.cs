@@ -21,14 +21,17 @@ namespace BAL.Manager
 		{
 			if (vacation == null) return;
 			var vacationDb = Mapper.Map<VacationRequest>(vacation);
-			var isDublicate = uOW.VacationRepo.All.FirstOrDefault(i => i.EndDate == vacationDb.EndDate || i.StartDate == vacationDb.StartDate && i.UserId == vacationDb.UserId) != null ? true : false;
+			var isDublicate = uOW.VacationRepo.All.Where(i => i.EndDate == vacationDb.EndDate || i.StartDate == vacationDb.StartDate && i.UserId == vacationDb.UserId) != null ? true : false;
+			var isOverlapse= uOW.VacationRepo.All.Where(i => vacationDb.EndDate >= i.StartDate && vacationDb.StartDate <= i.EndDate) != null ? true : false;
+
 			if (vacationDb.Id != 0 || isDublicate)
 			{
+				vacationDb.Status = Status.InQueue;
 				uOW.VacationRepo.Update(vacationDb);
 			}
 			else
 			{
-				vacationDb = CheckPolicies(vacationDb,vacationDb.UserId);
+				vacationDb = CheckPolicies(vacationDb);
 				if (vacationDb == null) return;
 				vacationDb.Status = Status.InQueue;
 				uOW.VacationRepo.Insert(vacationDb);
@@ -45,9 +48,10 @@ namespace BAL.Manager
 
 
 		#region Helpers
-		VacationRequest CheckPolicies(VacationRequest vacation, int userId)
+
+		VacationRequest CheckPolicies(VacationRequest vacation)
 		{
-			var user = uOW.UserRepo.GetByID(userId);
+			var user = uOW.UserRepo.GetByID(vacation.UserId);
 			int vacationDays = (vacation.EndDate - vacation.StartDate).Days;
 			if (vacationDays < 0) return null;
 

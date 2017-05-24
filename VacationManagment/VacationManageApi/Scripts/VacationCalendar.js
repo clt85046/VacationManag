@@ -155,7 +155,7 @@
 	self.setHoliday = function () {
 		var holiday = {
 			Name: $("#nameOfHoliday").val(),
-			Date: $('#dateOfHoliday').datepicker('getDate'),
+			Date: $('#dateOfHoliday').datepicker({ dateFormat: 'dd-mm-yy' }).val(),
 			HRId: $("#userName").attr("user-id")
 		};
 		$.ajax({
@@ -444,8 +444,8 @@ function saveEvent() {
 	}
 	var request = {
 		VacationType: $('#event-modal input[name="event-type"]').val(),
-		StartDate: $('#event-modal input[name="event-start-date"]').datepicker('getDate'),
-		EndDate: $('#event-modal input[name="event-end-date"]').datepicker('getDate'),
+		StartDate: $('#event-modal input[name="event-start-date"]').datepicker({ dateFormat: 'dd-mm-yy' }).val(),
+		EndDate: $('#event-modal input[name="event-end-date"]').datepicker({ dateFormat: 'dd-mm-yy' }).val(),
 		UserId: $("#userName").attr("user-id"),
 		Id: $('#event-modal input[name="event-index"]').val()
 	};

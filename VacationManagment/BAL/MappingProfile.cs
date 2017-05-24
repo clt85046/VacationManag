@@ -18,12 +18,12 @@ namespace BAL
 			CreateMap<CreateRequestDTO, VacationRequest>()
 				.ForMember(x => x.EndDate,y => y.MapFrom(t => DateTime.ParseExact(
 				t.EndDate,
-				"ddd MMM dd yyyy HH:mm:ss 'GMT'K '(FLE Standard Time)'",
-				CultureInfo.InvariantCulture)))
+				"MM/dd/yyyy",
+				CultureInfo.InvariantCulture,DateTimeStyles.None)))
 				.ForMember(x => x.StartDate, y => y.MapFrom(t => DateTime.ParseExact(
 				 t.StartDate,
-				 "ddd MMM dd yyyy HH:mm:ss 'GMT'K '(FLE Standard Time)'",
-				 CultureInfo.InvariantCulture)))
+				 "MM/dd/yyyy",
+				 CultureInfo.InvariantCulture, DateTimeStyles.None)))
 				.ForMember(x => x.VacationType, y => y.MapFrom(t => (VacationType)Enum.Parse(typeof(VacationType),t.VacationType)))
 				.ForMember(x => x.Id, y => y.MapFrom(t => t.Id))
 				;
@@ -36,8 +36,8 @@ namespace BAL
 			CreateMap<SetHolidayDTO, Holidays>()
 				.ForMember(x => x.Date, y => y.MapFrom(t => DateTime.ParseExact(
 				 t.Date,
-				 "ddd MMM dd yyyy HH:mm:ss 'GMT'K '(FLE Daylight Time)'",
-				 CultureInfo.InvariantCulture)));
+				 "MM/dd/yyyy",
+				 CultureInfo.InvariantCulture, DateTimeStyles.None)));
 			CreateMap<Holidays, SetHolidayDTO>();
 
 		}

@@ -14,9 +14,11 @@ namespace VacationManageApi.Controllers
 	public class EmployeeController : ApiController
     {
 		private readonly IEmployeeManager employeeManager;
-		public EmployeeController(IEmployeeManager employeeManager)
+		private readonly IUserManager userManager;
+		public EmployeeController(IEmployeeManager employeeManager,IUserManager userManager)
 		{
 			this.employeeManager = employeeManager;
+			this.userManager = userManager;
 		}
 		/// <summary>
 		/// Create new vacation request
@@ -29,8 +31,9 @@ namespace VacationManageApi.Controllers
 		{
 			try
 			{
+				var fullName = userManager.GetFullName(request.UserId);
 				employeeManager.Create(request);
-				return Ok();
+				return Ok(fullName);
 			}
 			catch (Exception ex)
 			{
