@@ -25,7 +25,6 @@ namespace BAL.Manager
 			{
 				var holidaysDb =context.Database.SqlQuery<Holidays>("SELECT * FROM Holidays");
 				holidaysList.AddRange(holidaysDb); 
-
 			}
 
 			//var holidays = uOW.HolidayRepo.All.ToList();

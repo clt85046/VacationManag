@@ -19,6 +19,10 @@ namespace VacationManageApi.Controllers
 		{
 			this.holidayManager = holidayManager;
 		}
+		/// <summary>
+		/// Get all holidays
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("GetAll")]
 		[ResponseType(typeof(List<HolidayLoadDTO>))]

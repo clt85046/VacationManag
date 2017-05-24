@@ -6,6 +6,7 @@
 	self.isUser = ko.observable(false);
 	self.isEmployee = ko.observable(false);
 
+	//Get info about user-id,role.
 	self.getUserInfo = function () {
 		var userId = $("#userName").attr("user-id");
 		if (userId == null || userId == undefined)
@@ -92,6 +93,7 @@
 			}
 		});
 	}
+	//Create user
 	self.createUser = function () {
 		var user = {
 			FirstName: $("#firstname").val(),
@@ -122,6 +124,7 @@
 		});
 
 	}
+	//Set new policy
 	self.setPolicy = function () {
 		var policy = {
 			MinYearsOfOffice: $("#minYearsOfOffice").val(),
@@ -148,6 +151,7 @@
 			}
 		});
 	};
+	//Set new holiday
 	self.setHoliday = function () {
 		var holiday = {
 			Name: $("#nameOfHoliday").val(),
@@ -166,6 +170,7 @@
 			}
 		});
 	};
+	//Load all requests depends on user role
 	self.loadAllRequests = function () {
 		if (self.isEmployee() == true) {
 			var userId = $("#userName").attr("user-id");
@@ -215,6 +220,40 @@
 						event = null;
 					}
 					$('#calendar').data('calendar').setDataSource(dataSource);
+					self.loadAllHolidays();
+				},
+				error: function (data) {
+				}
+			});
+		}
+		else if (self.isUser() == true) {
+			$.ajax({
+				type: "GET",
+				beforeSend: function (xhr) { xhr.setRequestHeader("Authorization", "Bearer " + appContext.token); },
+				url: appContext.buildUrl("api/Vacation/GetAllApproved"),
+				success: function (data) {
+					for (var i in data) {
+						data[i].EndDate = data[i].EndDate.substring(0, data[i].EndDate.indexOf('T')).split('-').map(Number);
+						data[i].StartDate = data[i].StartDate.substring(0, data[i].StartDate.indexOf('T')).split('-').map(Number);
+					}
+					var dataSource = $('#calendar').data('calendar').getDataSource();
+					for (var i in data) {
+						var event;
+						 if (data[i].Status == "Approved") {
+							event = {
+								id: data[i].Id,
+								fullname: data[i].FullName,
+								type: data[i].VacationType,
+								startDate: new Date(data[i].StartDate[0], data[i].StartDate[1] - 1, data[i].StartDate[2]),
+								endDate: new Date(data[i].EndDate[0], data[i].EndDate[1] - 1, data[i].EndDate[2]),
+								color: "green"
+							};
+						}	
+						dataSource.push(event);
+						event = null;
+					}
+					$('#calendar').data('calendar').setDataSource(dataSource);
+					self.loadAllHolidays();
 				},
 				error: function (data) {
 				}
@@ -267,6 +306,7 @@
 						event = null;
 					}
 					$('#calendar').data('calendar').setDataSource(dataSource);
+					self.loadAllHolidays();
 				},
 				error: function (data) {
 				}
@@ -274,7 +314,7 @@
 		}
 
 	};
-
+	//Load all company holidays
 	self.loadAllHolidays = function ()
 	{
 		$.ajax({
@@ -300,15 +340,12 @@
 					event = null;
 				}
 				$('#calendar').data('calendar').setDataSource(dataSource);
-
-
-
 			},
 			error: function (data) {
 			}
 		});
 	};
-
+	//Approve request method
 	self.approveRequest = function (){
 		var requestid = $('#event-modal input[name="event-index"]').val();
 		var userId = $("#userName").attr("user-id");
@@ -333,7 +370,7 @@
 			}
 		});
 	}
-
+	//Decline request 
 	self.declineRequest = function () {
 
 		var requestid = $('#event-modal input[name="event-index"]').val();
@@ -363,7 +400,7 @@
 };
 
 
-
+//edit event calendar
 function editEvent(event) {
 	$('#event-modal input[name="event-index"]').val(event ? event.id : '');
 	$('#event-modal input[name="event-fullname"]').val(event ? event.fullname : '');
@@ -373,6 +410,7 @@ function editEvent(event) {
 	$('#event-modal').modal();
 }
 
+//delete event calendar
 function deleteEvent(event) {
 	var dataSource = $('#calendar').data('calendar').getDataSource();
 	$.ajax({
@@ -396,6 +434,7 @@ function deleteEvent(event) {
 	$('#calendar').data('calendar').setDataSource(dataSource);
 }
 
+// save event calendar
 function saveEvent() {
 	var event = {
 		id: $('#event-modal input[name="event-index"]').val(),
@@ -505,7 +544,6 @@ $(function () {
 	});
 	var vm = new viewModel();
 	vm.getUserInfo();
-	vm.loadAllHolidays();
 	ko.applyBindings(vm, $(".vacationCalendar")[0]);
 
 	$("#dateOfHoliday").datepicker();

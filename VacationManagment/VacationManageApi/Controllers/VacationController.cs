@@ -22,6 +22,10 @@ namespace VacationManageApi.Controllers
 			this.userManager = userManager;
 			this.vacationManager = vacationManager;
 		}
+		/// <summary>
+		/// Get all vacation requests
+		/// </summary>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("GetAll")]
 		[ResponseType(typeof(List<VacationRequestDTO>))]
@@ -54,6 +58,11 @@ namespace VacationManageApi.Controllers
 			}
 		}
 
+		/// <summary>
+		/// Get all request for one employee
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("GetAllById/{userId}")]
 		[ResponseType(typeof(List<VacationRequestDTO>))]
@@ -62,6 +71,41 @@ namespace VacationManageApi.Controllers
 			try
 			{
 				var vacations = vacationManager.GetAllById(userId);
+				var resultRequests = new List<VacationRequestDTO>();
+				foreach (var req in vacations)
+				{
+					var requestDTO = new VacationRequestDTO()
+					{
+						Id = req.Id,
+						ApprovedBy = req.ApprovedBy,
+						EndDate = req.EndDate,
+						StartDate = req.StartDate,
+						FullName = String.Format("{0} {1}", userManager.GetById(req.UserId).LastName, userManager.GetById(req.UserId).FirstName),
+						Status = Enum.GetName(typeof(Status), req.Status),
+						UserId = req.UserId,
+						VacationType = Enum.GetName(typeof(VacationType), req.VacationType)
+					};
+					resultRequests.Add(requestDTO);
+				}
+				return Ok(resultRequests);
+			}
+			catch (Exception ex)
+			{
+				return NotFound();
+			}
+		}
+		/// <summary>
+		/// Get all approved requests for default user
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("GetAllApproved")]
+		[ResponseType(typeof(List<VacationRequestDTO>))]
+		public IHttpActionResult GetAllApproved()
+		{
+			try
+			{
+				var vacations = vacationManager.GetAll().Where(i=>i.Status==Status.Approved);
 				var resultRequests = new List<VacationRequestDTO>();
 				foreach (var req in vacations)
 				{

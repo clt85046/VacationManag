@@ -18,7 +18,11 @@ namespace VacationManageApi.Controllers
 		{
 			this.employeeManager = employeeManager;
 		}
-
+		/// <summary>
+		/// Create new vacation request
+		/// </summary>
+		/// <param name="request"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("Create")]
 		public IHttpActionResult Create([FromBody]CreateRequestDTO request)
@@ -33,7 +37,11 @@ namespace VacationManageApi.Controllers
 				return NotFound();
 			}
 		}
-
+		/// <summary>
+		/// Remove vacation request
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		[HttpDelete]
 		[Route("Remove/{id}")]
 		public IHttpActionResult Remove(int id)

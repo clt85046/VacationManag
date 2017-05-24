@@ -17,6 +17,12 @@ namespace VacationManageApi.Controllers
 		{
 			this.managerManager = managerManager;
 		}
+		/// <summary>
+		/// Approve request
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		[HttpPut]
 		[Route("Approve/{id}/{userId}")]
 		public IHttpActionResult Approve(int id, int userId)
@@ -31,7 +37,12 @@ namespace VacationManageApi.Controllers
 				return NotFound();
 			}
 		}
-
+		/// <summary>
+		/// Decline request
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		[HttpPut]
 		[Route("Decline/{id}/{userId}")]
 		public IHttpActionResult Decline(int id, int userId)

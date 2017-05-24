@@ -29,7 +29,7 @@ namespace BAL.Manager
 			else
 			{
 				vacationDb = CheckPolicies(vacationDb,vacationDb.UserId);
-				if (vacation == null) return;
+				if (vacationDb == null) return;
 				vacationDb.Status = Status.InQueue;
 				uOW.VacationRepo.Insert(vacationDb);
 			}
@@ -59,7 +59,7 @@ namespace BAL.Manager
 			var remaindDays = (int)GetPropValue(user, vacationType);
 
 			if (remaindDays < vacationDays) return null;
-
+			if (vacationDays == 0) vacationDays = 1;
 			int newRemaindDays = remaindDays - vacationDays;
 			vacation.User = UpdateUserRemaindDays(user, vacationType, newRemaindDays);
 

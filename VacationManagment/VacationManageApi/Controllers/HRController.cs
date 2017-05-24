@@ -19,6 +19,11 @@ namespace VacationManageApi.Controllers
 		{
 			this.hrManager = hrManager;
 		}
+		/// <summary>
+		/// Create user
+		/// </summary>
+		/// <param name="user"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("Create")]
 		public IHttpActionResult Create([FromBody]User user)
@@ -33,7 +38,11 @@ namespace VacationManageApi.Controllers
 				return NotFound();
 			}
 		}
-
+		/// <summary>
+		/// Set company holiday
+		/// </summary>
+		/// <param name="holiday"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("SetCompanyHoliday")]
 		public IHttpActionResult SetCompanyHoliday([FromBody]SetHolidayDTO holiday)
@@ -48,6 +57,11 @@ namespace VacationManageApi.Controllers
 				return NotFound();
 			}
 		}
+		/// <summary>
+		/// Set policy
+		/// </summary>
+		/// <param name="policy"></param>
+		/// <returns></returns>
 		[HttpPost]
 		[Route("SetPolicy")]
 		public IHttpActionResult SetPolicy([FromBody]Policy policy)
