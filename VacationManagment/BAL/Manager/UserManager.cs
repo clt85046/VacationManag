@@ -27,6 +27,10 @@ namespace BAL.Manager
 			var user = uOW.UserRepo.All.FirstOrDefault(i => i.UserName == username && i.Password == password);
 			return user;
 		}
+		/// <summary>
+		/// Get All users
+		/// </summary>
+		/// <returns></returns>
 		public List<User> GetAll()
 		{
 			var users = new List<User>();
@@ -37,22 +41,37 @@ namespace BAL.Manager
 			}
 			return users;
 		}
-
+		/// <summary>
+		/// Get user by id
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public User GetById(int id)
 		{
 			return uOW.UserRepo.GetByID(id);
 		}
-
+		/// <summary>
+		/// Get role name of user
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public string GetRoleName(int id)
 		{
 			return uOW.UserRepo.GetByID(id).Role.Name;
 		}
-
+		/// <summary>
+		/// Get full name of user
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
 		public string GetFullName(int id)
 		{
 			return uOW.UserRepo.GetByID(id).LastName + " " + uOW.UserRepo.GetByID(id).FirstName;
 		}
-
+		/// <summary>
+		/// Update user
+		/// </summary>
+		/// <param name="user"></param>
 		public void Update(User user)
 		{
 			uOW.UserRepo.Update(user);

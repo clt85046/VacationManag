@@ -17,6 +17,10 @@ namespace BAL.Manager
 		public EmployeeManager(IUnitOfWork uOW) : base(uOW)
 		{
 		}
+		/// <summary>
+		/// Create vacation request
+		/// </summary>
+		/// <param name="vacation"></param>
 		public void Create(CreateRequestDTO vacation)
 		{
 			if (vacation == null) return;
@@ -38,7 +42,10 @@ namespace BAL.Manager
 			}
 			uOW.Save();
 		}
-
+		/// <summary>
+		/// Remove request 
+		/// </summary>
+		/// <param name="Id"></param>
 		public void Remove(int Id)
 		{
 			var request = uOW.VacationRepo.GetByID(Id);
@@ -48,7 +55,11 @@ namespace BAL.Manager
 
 
 		#region Helpers
-
+		/// <summary>
+		/// Check policies of user for needed type of vacation
+		/// </summary>
+		/// <param name="vacation"></param>
+		/// <returns></returns>
 		VacationRequest CheckPolicies(VacationRequest vacation)
 		{
 			var user = uOW.UserRepo.GetByID(vacation.UserId);
@@ -60,21 +71,29 @@ namespace BAL.Manager
 
 			var vacationType = Enum.GetName(typeof(VacationType), vacation.VacationType);
 
-			var remaindDays = (int)GetPropValue(user, vacationType);
+			var remainDays = (int)GetPropValue(user, vacationType);
 
-			if (remaindDays < vacationDays) return null;
+			if (remainDays < vacationDays) return null;
 			if (vacationDays == 0) vacationDays = 1;
-			int newRemaindDays = remaindDays - vacationDays;
-			vacation.User = UpdateUserRemaindDays(user, vacationType, newRemaindDays);
+			int newRemainDays = remainDays - vacationDays;
+			vacation.User = UpdateUserRemainDays(user, vacationType, newRemainDays);
 
 			return vacation;
 		}
-		User UpdateUserRemaindDays(User user, string vacationType, int remaindDays)
+		/// <summary>
+		/// Update remain 
+		/// </summary>
+		/// <param name="user"></param>
+		/// <param name="vacationType"></param>
+		/// <param name="remaindDays"></param>
+		/// <returns></returns>
+		User UpdateUserRemainDays(User user, string vacationType, int remaindDays)
 		{
 			user.GetType().GetProperty(vacationType).SetValue(user, remaindDays);
 
 			return user;
 		}
+
 		public static object GetPropValue(object src, string propName)
 		{
 			return src.GetType().GetProperty(propName).GetValue(src, null);

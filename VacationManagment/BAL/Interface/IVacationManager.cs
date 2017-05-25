@@ -10,7 +10,8 @@ namespace BAL.Interface
 {
 	public interface IVacationManager
 	{
-		List<VacationRequest> GetAll();
-		List<VacationRequest> GetAllById(int Id);
+		List<VacationRequestDTO> GetAll();
+		List<VacationRequestDTO> GetAllById(int Id);
+		List<VacationRequestDTO> GetAllApproved();
 	}
 }

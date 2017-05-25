@@ -34,23 +34,7 @@ namespace VacationManageApi.Controllers
 			try
 			{
 				var vacations = vacationManager.GetAll();
-				var resultRequests = new List<VacationRequestDTO>();
-				foreach (var req in vacations)
-				{
-					var requestDTO = new VacationRequestDTO()
-					{
-						Id = req.Id,
-						ApprovedBy = req.ApprovedBy,
-						EndDate = req.EndDate,
-						StartDate = req.StartDate,
-						FullName = String.Format("{0} {1}", userManager.GetById(req.UserId).LastName, userManager.GetById(req.UserId).FirstName),
-						Status = Enum.GetName(typeof(Status), req.Status),
-						UserId = req.UserId,
-						VacationType = Enum.GetName(typeof(VacationType), req.VacationType)
-					};
-					resultRequests.Add(requestDTO);
-				}
-				return Ok(resultRequests);
+				return Ok(vacations);
 			}
 			catch (Exception ex)
 			{
@@ -71,23 +55,7 @@ namespace VacationManageApi.Controllers
 			try
 			{
 				var vacations = vacationManager.GetAllById(userId);
-				var resultRequests = new List<VacationRequestDTO>();
-				foreach (var req in vacations)
-				{
-					var requestDTO = new VacationRequestDTO()
-					{
-						Id = req.Id,
-						ApprovedBy = req.ApprovedBy,
-						EndDate = req.EndDate,
-						StartDate = req.StartDate,
-						FullName = String.Format("{0} {1}", userManager.GetById(req.UserId).LastName, userManager.GetById(req.UserId).FirstName),
-						Status = Enum.GetName(typeof(Status), req.Status),
-						UserId = req.UserId,
-						VacationType = Enum.GetName(typeof(VacationType), req.VacationType)
-					};
-					resultRequests.Add(requestDTO);
-				}
-				return Ok(resultRequests);
+				return Ok(vacations);
 			}
 			catch (Exception ex)
 			{
@@ -105,24 +73,8 @@ namespace VacationManageApi.Controllers
 		{
 			try
 			{
-				var vacations = vacationManager.GetAll().Where(i=>i.Status==Status.Approved);
-				var resultRequests = new List<VacationRequestDTO>();
-				foreach (var req in vacations)
-				{
-					var requestDTO = new VacationRequestDTO()
-					{
-						Id = req.Id,
-						ApprovedBy = req.ApprovedBy,
-						EndDate = req.EndDate,
-						StartDate = req.StartDate,
-						FullName = String.Format("{0} {1}", userManager.GetById(req.UserId).LastName, userManager.GetById(req.UserId).FirstName),
-						Status = Enum.GetName(typeof(Status), req.Status),
-						UserId = req.UserId,
-						VacationType = Enum.GetName(typeof(VacationType), req.VacationType)
-					};
-					resultRequests.Add(requestDTO);
-				}
-				return Ok(resultRequests);
+				var approvedVacations = vacationManager.GetAllApproved();
+				return Ok(approvedVacations);
 			}
 			catch (Exception ex)
 			{

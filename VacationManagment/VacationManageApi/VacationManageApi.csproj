@@ -248,8 +248,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="ApiControllers\AccountController.cs" />
-    <Compile Include="ApiControllers\ClaimsController.cs" />
     <Compile Include="ApiControllers\EmployeeController.cs" />
     <Compile Include="ApiControllers\HolidayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

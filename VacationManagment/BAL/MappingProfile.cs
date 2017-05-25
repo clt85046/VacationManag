@@ -27,6 +27,12 @@ namespace BAL
 				.ForMember(x => x.VacationType, y => y.MapFrom(t => (VacationType)Enum.Parse(typeof(VacationType),t.VacationType)))
 				.ForMember(x => x.Id, y => y.MapFrom(t => t.Id))
 				;
+			CreateMap<VacationRequestDTO, VacationRequest>();
+			CreateMap<VacationRequest, VacationRequestDTO>()
+				.ForMember(x=>x.VacationType,y => y.MapFrom(t => Enum.GetName(typeof(VacationType), t.VacationType)))
+				.ForMember(x => x.Status, y => y.MapFrom(t => Enum.GetName(typeof(Status), t.Status)))
+				.ForMember(x => x.FullName, y => y.MapFrom(t =>t.User.FirstName+" " +t.User.LastName))
+				;
 			CreateMap<VacationRequest, CreateRequestDTO>();
 			CreateMap<Holidays, HolidayLoadDTO>()
 				.ForMember(x => x.StartDate, y => y.MapFrom(t => t.Date))

@@ -13,7 +13,7 @@ namespace VacationManagmentApi.Controllers
 	[Authorize]
 	[RoutePrefix("api/User")]
 	public class UserController : ApiController
-    {
+	{
 		private readonly IUserManager userManager;
 		public UserController(IUserManager userManager)
 		{
@@ -38,7 +38,11 @@ namespace VacationManagmentApi.Controllers
 				return NotFound();
 			}
 		}
-
+		/// <summary>
+		/// Get role name of user by id
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("GetRoleName/{userId}")]
 		public IHttpActionResult GetRoleName(int userId)
@@ -53,7 +57,11 @@ namespace VacationManagmentApi.Controllers
 				return NotFound();
 			}
 		}
-
+		/// <summary>
+		/// Get full name of user by id
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
 		[HttpGet]
 		[Route("GetFullName/{userId}")]
 		public IHttpActionResult GetFullName(int userId)

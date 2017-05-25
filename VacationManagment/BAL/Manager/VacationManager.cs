@@ -19,14 +19,18 @@ namespace BAL.Manager
 		{
 		}
 
-		public List<VacationRequest> GetAll()
+		public List<VacationRequestDTO> GetAll()
 		{
-			return uOW.VacationRepo.All.ToList();
+			return Mapper.Map<List<VacationRequestDTO>>(uOW.VacationRepo.All.ToList());
 		}
 
-		public List<VacationRequest> GetAllById(int Id)
+		public List<VacationRequestDTO> GetAllById(int Id)
 		{
-			return uOW.VacationRepo.All.Where(i=>i.UserId==Id).ToList();
+			return Mapper.Map<List<VacationRequestDTO>>(uOW.VacationRepo.All.Where(i => i.UserId == Id).ToList());
+		}
+		public List<VacationRequestDTO> GetAllApproved()
+		{
+			return Mapper.Map<List<VacationRequestDTO>>(uOW.VacationRepo.All.Where(i => i.Status==Status.Approved).ToList());
 		}
 	}
 }

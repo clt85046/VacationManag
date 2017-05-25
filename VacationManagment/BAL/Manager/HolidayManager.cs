@@ -17,7 +17,10 @@ namespace BAL.Manager
 		public HolidayManager(IUnitOfWork uOW) : base(uOW)
 		{
 		}
-
+		/// <summary>
+		/// Get all company holidays
+		/// </summary>
+		/// <returns></returns>
 		public List<HolidayLoadDTO> GetAll()
 		{
 			var holidaysList = new List<Holidays>();

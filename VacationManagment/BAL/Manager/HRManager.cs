@@ -17,6 +17,10 @@ namespace BAL.Manager
 		public HRManager(IUnitOfWork uOW) : base(uOW)
 		{
 		}
+		/// <summary>
+		/// Create new user
+		/// </summary>
+		/// <param name="user"></param>
 		public void Create(User user)
 		{
 			if (user == null) return;
@@ -33,6 +37,10 @@ namespace BAL.Manager
 			uOW.UserRepo.Insert(user);
 			uOW.Save();
 		}
+		/// <summary>
+		/// Set new company holiday
+		/// </summary>
+		/// <param name="holiday"></param>
 		public void SetCompanyHoliday(SetHolidayDTO holiday)
 		{
 			if (holiday == null) return;
@@ -54,6 +62,12 @@ namespace BAL.Manager
 		}
 
 		#region Helpers
+		/// <summary>
+		/// Set vacation days for user depends on yearsOfService
+		/// </summary>
+		/// <param name="user"></param>
+		/// <param name="policy"></param>
+		/// <returns></returns>
 		User SetVacationDays(User user, Policy policy)
 		{
 			user.PaidDayOffs = policy.PaidDayOffs;

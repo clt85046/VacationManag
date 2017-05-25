@@ -14,6 +14,11 @@ namespace BAL.Manager
 		public ManagerManager(IUnitOfWork uOW) : base(uOW)
 		{
 		}
+		/// <summary>
+		/// Approve vacation request
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="userId"></param>
 		public void ApproveRequest(int id, int userId)
 		{
 			if (id == 0) return;
@@ -26,6 +31,11 @@ namespace BAL.Manager
 			uOW.Save();
 
 		}
+		/// <summary>
+		/// Decline vacation request
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="userId"></param>
 		public void DeclineRequest(int id, int userId)
 		{
 			if (id == 0) return;
