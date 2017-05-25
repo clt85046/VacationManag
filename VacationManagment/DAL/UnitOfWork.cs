@@ -22,13 +22,6 @@ namespace DAL
 		public UnitOfWork()
 		{
 			context = new MainContext();
-
-			userRepo = new GenericRepository<User>(context);
-			holidayRepo = new GenericRepository<Holidays>(context);
-			roleRepo = new GenericRepository<Role>(context);
-			vacationRepo = new GenericRepository<VacationRequest>(context);
-			policyRepo = new GenericRepository<Policy>(context);
-
 		}
 		public IGenericRepository<Policy> PolicyRepo
 		{
